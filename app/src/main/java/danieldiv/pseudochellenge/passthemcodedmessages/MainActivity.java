@@ -15,29 +15,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // solution(new int[]{1, 1, 1, 1, 1, 1, 1, 1, 4});
-        solution(new int[]{1, 1, 1, 1, 1});//<<<
-        solution(new int[]{1, 1, 1, 1, 1, 1, 1, 1});//<<<<
-        // solution(new int[]{1, 1, 1, 1, 1, 1, 4});
-        // solution(new int[]{1, 1, 1, 1, 1, 1});
-       // solution(new int[]{1, 1, 1, 1});
-        //solution(new int[]{4, 1, 1, 1});
-        //solution(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0});
+        //solution(new int[]{1, 1, 1, 1, 1, 1, 1, 1, 4});
+
+        solution(new int[]{1, 1, 1, 1, 1, 1, 1, 1});
+
+
+        solution(new int[]{1, 1, 1, 1, 1, 1, 4});
+        solution(new int[]{1, 1, 1, 1, 1, 1});
+        solution(new int[]{1, 1, 1, 1});
+        solution(new int[]{4, 1, 1, 1});
+        solution(new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0});
+        solution(new int[]{3});
+        solution(new int[]{1});
 
 
         //Input:
-       //solution(new int[]{3, 1, 4, 1});
+        solution(new int[]{3, 1, 4, 1});
         //Output:
         //4311
 
 
         //Input:
-        //solution(new int[]{3, 1, 4, 1, 5, 9});
+        solution(new int[]{3, 1, 4, 1, 5, 9});
         //Output:
         //94311
 
-      //  solution(new int[]{3});
-       // solution(new int[]{1});
+        //Input:
+        solution(new int[]{ 4, 1, 7, 1, 4});
+        //Output:
+        //
 
 
     }
@@ -49,61 +55,86 @@ public class MainActivity extends AppCompatActivity {
         int solutionFound = 0;
         int[] sortedL = sortedMaxToMin(l);
         int[] tempL = sortedL;
+        int[] tempTempL;
+        int[] tempTempLL;
         int sumAll;
+        int sumA;
 
+        boolean foundForLengthLength;
+        boolean foundForLengthLengthMinus1 = false;
+        boolean foundForLengthLengthMinus2 = false;
+        boolean foundItFinal = false;
 
+        /////////////////////////////CHECK for length = length
         sumAll = sumA(tempL);
-        foundItMarkAll = foundItMod3(sumAll);
-        if (foundItMarkAll) {
+        foundForLengthLength = foundItMod3(sumAll);
+        if (foundForLengthLength) {
+            /////////////////////////////Solution exists for length = length
             solutionFound = combinedIntoInt(tempL);
-        } else {
-            //shorten by one
-            //sum
-            //set the marker
-            solution = sqeezeIt(sortedL, foundItMarkAll);
-            if (foundItMarkAll) {
-                solutionFound = combinedIntoInt(solution);
-            } else {
-                solution = sqeezeIt(solution, foundItMarkAll);
-                if (foundItMarkAll) {
-                    solutionFound = combinedIntoInt(solution);
-                } else {
-                    solution = sqeezeIt(solution, foundItMarkAll);
-                    if (foundItMarkAll) {
-                        solutionFound = combinedIntoInt(solution);
-                    } else {
-                        solution = sqeezeIt(solution, foundItMarkAll);
-                        if (foundItMarkAll) {
-                            solutionFound = combinedIntoInt(solution);
-                        } else {
-                            solution = sqeezeIt(solution, foundItMarkAll);
-                            if (foundItMarkAll) {
-                                solutionFound = combinedIntoInt(solution);
-                            } else {
-                                solution = sqeezeIt(solution, foundItMarkAll);
-                                if (foundItMarkAll) {
-                                    solutionFound = combinedIntoInt(solution);
-                                } else {
-                                    solution = sqeezeIt(solution, foundItMarkAll);
-                                    if (foundItMarkAll) {
-                                        solutionFound = combinedIntoInt(solution);
-                                    } else {
-                                        solution = sqeezeIt(solution, foundItMarkAll);
-                                    }
-                                }
+            foundItFinal = true;
+        } else if (foundItFinal == false) {
+            ////    /////////////////////////CHECK for length = length-1
+            for (int k = tempL.length - 1; k >= 0; k--) {
+                //short bu one element on position k
+                Log.i("AppTag", "tempLbefore: " + Arrays.toString(tempL));
+                tempTempL = shortenByOne(tempL, k);
+                Log.i("AppTag", "tempTempL: " + Arrays.toString(tempTempL));
+                sumA = sumA(tempTempL);
+                Log.i("AppTag", "sumA " + sumA);
+                if (foundItFinal == false)
+                    foundForLengthLengthMinus1 = foundItMod3(sumA);
+                Log.i("AppTag", "foundMark1: " + foundForLengthLengthMinus1);
+                if (foundForLengthLengthMinus1) {
+                    ////    /////////////////////////Solution exists for length = length-1
+                    solutionFound = combinedIntoInt(tempTempL);
+                    foundItFinal = true;
+                    foundForLengthLengthMinus1 = false;
+                    Log.i("AppTag", "foundMarkFinal: " + foundItFinal);
+                }
+                ////    /////////////////////////CHECK for length = length-2
+                if (k == 0 && foundItFinal == false) {
+                    Log.i("AppTag", "LLOOOOPPPP2222222222222"+"LLOOOOPPPP2222222222222");
+                    //we are doing shortening by one for original array, but now we will also do
+                    //shorten again for every length=length-1 array
+                    //effectively having all arrays of length=length-2 possible
+
+                    //generate length=length-1
+                    for (int kk = tempL.length - 1; kk >= 0; kk--) {
+                        //short by one element on position kk
+                        tempTempL = shortenByOne(tempL, kk);
+                        //generate length=length-1-1
+                        for (int i = tempTempL.length - 1; i >=0 ; i--) {
+                            Log.i("AppTag", "tempTempLLbefore: " + Arrays.toString(tempTempL));
+                            tempTempLL = shortenByOne(tempTempL, i);
+                            Log.i("AppTag", "tempTempLL: " + Arrays.toString(tempTempLL));
+                            sumA = sumA(tempTempLL);
+                            Log.i("AppTag", "sumA " + sumA);
+                            //if you found final solution just casually continue the loop, just do not assign new valuet to foundForLengthLengthMinus2
+                            if (foundItFinal == false)
+                                foundForLengthLengthMinus2 = foundItMod3(sumA);
+                            Log.i("AppTag", "foundMark2: " + foundForLengthLengthMinus2);
+                            if (foundForLengthLengthMinus2) {
+                                ////    /////////////////////////Solution exists for length = length-2
+                                solutionFound = combinedIntoInt(tempTempLL);
+                                foundItFinal = true;
+                                foundForLengthLengthMinus2 = false;
+                                Log.i("AppTag", "foundMarkFinal: " + foundItFinal);
                             }
                         }
                     }
+
+
                 }
             }
-
         }
 
 
         foundItMarkAll = false;
-        Log.i("AppTag", "solutionFound: " + solutionFound);
+        Log.i("AppTagF", "solutionFound: " + solutionFound);
         return solutionFound;
     }
+
+
 
 
     /*
@@ -111,25 +142,6 @@ public class MainActivity extends AppCompatActivity {
      */
 
 
-    int[] sqeezeIt(int[] tempL, boolean foundItMark) {
-        int sumA;
-        int[] solutionFound = new int[tempL.length - 1];
-        for (int k = tempL.length - 1; k >= 0; k--) {
-            if (foundItMarkAll == false) {
-                int[] tempTempL = shortenByOne(tempL, k);
-                sumA = sumA(tempTempL);
-                foundItMarkAll = foundItMod3(sumA);
-                if (foundItMarkAll) {
-                    //solutionFound = combinedIntoInt(tempTempL);
-                    solutionFound = tempTempL;
-                } else {
-                    //solutionFound = new int[]{0};
-                    // tempTempL = tempL;
-                }
-            }
-        }
-        return solutionFound;
-    }
 
 
     int[] sortedMaxToMin(int[] digitsToBeSortedMaxMin) {
@@ -139,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         int indexOfMax = 0;
 
         for (int n = 0; n < digitsToCombineSortedMaxMin.length; n++) {
-          //  Log.i("AppTag", "sortempL: " + Arrays.toString(tempL));
+            //  Log.i("AppTag", "sortempL: " + Arrays.toString(tempL));
             int max = -1;
             //      find th Value of the maximum
             for (int i = 0; i < tempL.length; i++) {
@@ -150,16 +162,16 @@ public class MainActivity extends AppCompatActivity {
 
             //find index of the last max value from the right
             for (int ii = tempL.length - 1; ii > -1; ii--) {
-               // Log.i("AppTag", "ii: " + ii);
+                // Log.i("AppTag", "ii: " + ii);
                 if (tempL[ii] == max) {
                     indexOfMax = ii;
-                   // Log.i("AppTag", "indexOfMax: " + indexOfMax);
+                    // Log.i("AppTag", "indexOfMax: " + indexOfMax);
                     //tempL[ii] = 0;
                 }
             }
             //here we are zeroing first value equal to max from the left
             //for indexOfMax=0 we want to do one roll (or hardwrite it)
-           // Log.i("AppTag", "indexOfMax: " + indexOfMax);
+            // Log.i("AppTag", "indexOfMax: " + indexOfMax);
             for (int iii = 0; iii < indexOfMax + 1; iii++) {
                 if (tempL[iii] == max) {
                     tempL[iii] = 0;
