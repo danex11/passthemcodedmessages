@@ -34,6 +34,8 @@ Required skills:
  than delete a single element one by one and check the sum, 
  than for this shorter set we have to nest another loop that is deleting single element one by one and performs the check out. 
  
+ If they would want it it be dividable by said 100, or any given by user number, than the code would have to have some procedural properties.
+ 
  
  
  
