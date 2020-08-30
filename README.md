@@ -17,7 +17,7 @@ Required skills:
  {9,4,1,5,1,3}
  will be reduced to 
  {0,1,1,2,1,0}.
- One thing this sugests to us is the fact that there are only three types of digits that can be deleted from our set: zeros, ones and twos.
+ One thing this sugests to us is that there are only three types of digits that can be deleted from our set: zeros, ones and twos.
  
  Deleting number that is dividable by 3 itself will not change the overall dividability for the sum - this is our zero.
  Deleting number that is dividable by 3 with remaining rest of 1 will change sum by one.
