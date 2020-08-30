@@ -2,6 +2,7 @@
 Second exercise from google challenges.
 
 Required skills:
+
   -Looping.
   -Conditions.
   -Operations on arrays.
