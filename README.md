@@ -9,6 +9,7 @@ Required skills:
  
  
  To be noted:
+ 
  You will need to check the result of a modulo 3 operation, to verify if a sum of digits is dividable by 3 without the rest remaining.
  
  Effectively when You ignore everything about your digits but this rest remaining after modulo3, your set of:
